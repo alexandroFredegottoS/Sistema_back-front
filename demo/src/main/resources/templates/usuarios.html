@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="logo">Sistema</div>
+    <button class="toggle-btn" onclick="toggleSidebar()">≡</button>
+
+    <nav class="menu">
+        <a th:href="@{/dashboard}">
+            <span class="icon">🏠</span>
+            <span class="text">Dashboard</span>
+        </a>
+        <a th:href="@{/usuarios}">
+            <span class="icon">👤</span>
+            <span class="text">Usuários</span>
+        </a>
+        <a th:href="@{/produtos}">
+            <span class="icon">📦</span>
+            <span class="text">Produtos</span>
+        </a>
+        <a th:href="@{/cadastroeprodutos}">
+            <span class="icon">➕</span>
+            <span class="text">Cadastro de produtos</span>
+        </a>
+        <a th:href="@{/compras}">
+            <span class="icon">🛒</span>
+            <span class="text">Compras</span>
+        </a>
+        <a th:href="@{/pedidos}">
+            <span class="icon">📋</span>
+            <span class="text">Pedidos</span>
+        </a>
+        <a th:href="@{/dashboard}">
+            <span class="icon">❌</span>
+            <span class="text">Sair</span>
+        </a>
+    </nav>
+</aside>
+
+<main class="main">
+    <h2>Cadastrar Usuário</h2>
+
+    <form th:action="@{/usuarios}" th:object="${userDTO}" method="post">
+
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}">
+
+        <label>CPF:</label>
+        <input type="text" th:field="*{cpf}">
+        <div class="error" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}">
+
+        <button type="submit">Cadastrar</button>
+    </form>
+    <hr>
+
+    <h2>Lista de Usuários</h2>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+            </tr>
+            <tr class="conteudo_form" th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.nome}"></td>
+                <td th:text="${usuario.cpf}"></td>
+                <td th:text="${usuario.email}"></td>
+            </tr>
+        </table>
+    </div>
+</main>
+
+<script>
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+</script>
+</body>
+</html>

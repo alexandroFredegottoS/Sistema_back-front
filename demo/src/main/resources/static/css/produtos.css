@@ -1,0 +1,115 @@
+/* ===== TÍTULO ===== */
+
+.main h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* ===== CARD ===== */
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ===== TABELA ===== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th {
+    background: #f3f4f6;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+td , select{
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+    background: #f9fafb;
+}
+
+.barra-pesquisa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-pesquisa input {
+    flex: 1;
+    height: 45px;
+}
+
+.barra-pesquisa button {
+    height: 45px;
+    width: 45px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== INPUTS DA TABELA ===== */
+
+table input, select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* ===== BOTÕES ===== */
+
+button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+/* Botão salvar */
+
+button[type="submit"] {
+    background: #059669;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background: #047857;
+}
+
+/* Botão excluir */
+
+.btn-excluir{
+    background:red;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.btn-excluir:hover{
+    background: rgba(255, 0, 0, 0.45);
+}
+
+/* ===== COLUNA AÇÕES ===== */
+
+td:last-child {
+    white-space: nowrap;
+}

@@ -1,0 +1,56 @@
+/* Formulário */
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+form button {
+    padding: 12px 20px;
+    background: #059669;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.conteudo_form{
+    text-align: center;
+}
+
+form button:hover {
+    background: #047857;
+}
+
+/* Tabela */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #f3f4f6;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+    background: #f9fafb;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

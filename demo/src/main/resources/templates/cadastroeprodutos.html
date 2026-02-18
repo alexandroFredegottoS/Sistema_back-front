@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produtos</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastroeprodutos.css}">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="logo">Sistema</div>
+    <button class="toggle-btn" onclick="toggleSidebar()">≡</button>
+
+    <nav class="menu">
+        <a th:href="@{/dashboard}">
+            <span class="icon">🏠</span>
+            <span class="text">Dashboard</span>
+        </a>
+        <a th:href="@{/usuarios}">
+            <span class="icon">👤</span>
+            <span class="text">Usuários</span>
+        </a>
+        <a th:href="@{/produtos}">
+            <span class="icon">📦</span>
+            <span class="text">Produtos</span>
+        </a>
+        <a th:href="@{/cadastroeprodutos}">
+            <span class="icon">➕</span>
+            <span class="text">Cadastro de produtos</span>
+        </a>
+        <a th:href="@{/compras}">
+            <span class="icon">🛒</span>
+            <span class="text">Compras</span>
+        </a>
+        <a th:href="@{/pedidos}">
+            <span class="icon">📋</span>
+            <span class="text">Pedidos</span>
+        </a>
+        <a th:href="@{/dashboard}">
+            <span class="icon">❌</span>
+            <span class="text">Sair</span>
+        </a>
+    </nav>
+</aside>
+
+<main class="main">
+    <h2>Cadastrar Produto</h2>
+
+    <form th:action="@{/cadastroeprodutos}" th:object="${prodDTO}" method="post">
+
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}">
+
+        <label>Valor Unitário:</label>
+        <input type="number" step="0.01"
+               th:field="*{vlUnitario}"
+               lang="en">
+
+        <label>Quantidade:</label>
+        <input type="number" th:field="*{quantidade}">
+
+        <label>Categoria:</label>
+        <select th:field="*{categoria}">
+            <option value="">Selecione uma categoria</option>
+            <option th:each="cat : ${categorias}"
+                    th:value="${cat}"
+                    th:text="${cat.descricao}">
+            </option>
+        </select>
+
+        <button type="submit">Cadastrar produto</button>
+    </form>
+    <hr>
+
+    <h2>Lista de Produtos</h2>
+
+    <form th:action="@{/cadastroeprodutos/pesquisar}" method="get">
+
+        <div class="barra-pesquisa">
+
+            <input type="text" name="nome"
+                   placeholder="Pesquisar produto...">
+
+            <button type="submit">🔍</button>
+
+        </div>
+
+    </form>
+
+    <div class="card">
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Valor Unitário</th>
+                <th>Quantidade</th>
+                <th>Categoria</th>
+            </tr>
+            <tr class="conteudo_form" th:each="produto : ${cadastroeprodutos}">
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.vlUnitario}"></td>
+                <td th:text="${produto.quantidade}"></td>
+                <td th:text="${produto.categoria}"></td>
+            </tr>
+        </table>
+    </div>
+</main>
+
+<script>
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+</script>
+
+</body>
+</html>

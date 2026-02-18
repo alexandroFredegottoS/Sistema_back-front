@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="logo">Sistema</div>
+    <button class="toggle-btn" onclick="toggleSidebar()">≡</button>
+
+    <nav class="menu">
+        <a th:href="@{/dashboard}">
+            <span class="icon">🏠</span>
+            <span class="text">Dashboard</span>
+        </a>
+        <a th:href="@{/usuarios}">
+            <span class="icon">👤</span>
+            <span class="text">Usuários</span>
+        </a>
+        <a th:href="@{/produtos}">
+            <span class="icon">📦</span>
+            <span class="text">Produtos</span>
+        </a>
+        <a th:href="@{/cadastroeprodutos}">
+            <span class="icon">➕</span>
+            <span class="text">Cadastro de produtos</span>
+        </a>
+        <a th:href="@{/compras}">
+            <span class="icon">🛒</span>
+            <span class="text">Compras</span>
+        </a>
+        <a th:href="@{/pedidos}">
+            <span class="icon">📋</span>
+            <span class="text">Pedidos</span>
+        </a>
+        <a th:href="@{/dashboard}">
+            <span class="icon">❌</span>
+            <span class="text">Sair</span>
+        </a>
+    </nav>
+</aside>
+
+<main class="main">
+    <div class="header">
+        <h1>Dashboard</h1>
+        <p>Bem-vindo ao painel do sistema.</p>
+    </div>
+
+    <section class="cards">
+        <div class="card">
+            <h3>Usuários</h3>
+            <p th:text="${totalUsuarios} + ' cadastrados'"></p>
+        </div>
+        <div class="card">
+            <h3>Pedidos</h3>
+            <p>0 ativos</p>
+        </div>
+        <div class="card">
+            <h3>Produtos</h3>
+            <p th:text="${totalProdutos} + ' disponíveis'"></p>
+        </div>
+    </section>
+</main>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+</script>
+
+</body>
+</html>

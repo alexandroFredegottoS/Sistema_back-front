@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastroeprodutos.css}">
+    <link rel="stylesheet" th:href="@{/css/produtos.css}">
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="logo">Sistema</div>
+    <button class="toggle-btn">≡</button>
+
+    <nav class="menu">
+        <a th:href="@{/dashboard}">
+            <span class="icon">🏠</span>
+            <span class="text">Dashboard</span>
+        </a>
+        <a th:href="@{/usuarios}">
+            <span class="icon">👤</span>
+            <span class="text">Usuários</span>
+        </a>
+        <a th:href="@{/produtos}">
+            <span class="icon">📦</span>
+            <span class="text">Produtos</span>
+        </a>
+        <a th:href="@{/cadastroeprodutos}">
+            <span class="icon">➕</span>
+            <span class="text">Cadastro de produtos</span>
+        </a>
+        <a th:href="@{/compras}">
+            <span class="icon">🛒</span>
+            <span class="text">Compras</span>
+        </a>
+        <a th:href="@{/pedidos}">
+            <span class="icon">📋</span>
+            <span class="text">Pedidos</span>
+        </a>
+        <a th:href="@{/dashboard}">
+            <span class="icon">❌</span>
+            <span class="text">Sair</span>
+        </a>
+    </nav>
+</aside>
+
+<main class="main">
+
+    <h2>Lista de Produtos</h2>
+
+    <form th:action="@{/produtos/pesquisar}" method="get">
+
+        <div class="barra-pesquisa">
+
+            <input type="text" name="nome"
+                   placeholder="Pesquisar produto...">
+
+            <button type="submit">🔍</button>
+
+        </div>
+
+    </form>
+
+    <div class="card">
+        <table>
+
+            <tr>
+                <th>Nome</th>
+                <th>Valor Unitário</th>
+                <th>Quantidade</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+
+            <th:block th:each="produto : ${produtos}">
+                <tr>
+
+                    <form th:action="@{/produtos/atualizar}" method="post">
+
+                        <input type="hidden" name="id" th:value="${produto.id}"/>
+
+                        <td>
+                            <input name="nome" th:value="${produto.nome}"/>
+                        </td>
+
+                        <td>
+                            <input name="vlUnitario" th:value="${produto.vlUnitario}"/>
+                        </td>
+
+                        <td>
+                            <input name="quantidade" th:value="${produto.quantidade}"/>
+                        </td>
+
+                        <td>
+                            <select name="categoria">
+                                <option th:each="cat : ${categorias}"
+                                        th:value="${cat}"
+                                        th:text="${cat.descricao}"
+                                        th:selected="${cat == produto.categoria}">
+                                </option>
+                            </select>
+                        </td>
+
+
+                        <td>
+                            <button th:type="submit" onclick="return confirm('Deseja salvar as alterações?')">
+                                💾
+                            </button>
+
+                            <a class="btn-excluir" th:href="@{/produtos/excluir/{id}(id=${produto.id})}"
+                               onclick="return confirm('Excluir produto?')">
+                                🗑️
+                            </a>
+                        </td>
+
+                    </form>
+
+                </tr>
+            </th:block>
+
+        </table>
+    </div>
+</main>
+
+<script>
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+</script>
+
+</body>
+</html>

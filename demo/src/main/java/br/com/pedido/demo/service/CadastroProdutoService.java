@@ -36,7 +36,7 @@ public class CadastroProdutoService {
 
         produto.setNome(cadastroProdutoDTO.getNome());
         produto.setVlUnitario(cadastroProdutoDTO.getVlUnitario());
-        produto.setQuantidade(cadastroProdutoDTO.getQuantidade());
+        produto.setEstoque(cadastroProdutoDTO.getEstoque());
         produto.setCategoria(cadastroProdutoDTO.getCategoria());
 
         // Persiste no banco
@@ -59,15 +59,15 @@ public class CadastroProdutoService {
      */
     private CadastroProdutoDTO toDTO(CadastroProdutoEntity produto){
 
-        CadastroProdutoDTO cadastroProdutoDTO = new CadastroProdutoDTO();
+        CadastroProdutoDTO dto = new CadastroProdutoDTO();
 
-        cadastroProdutoDTO.setId(produto.getId());
-        cadastroProdutoDTO.setNome(produto.getNome());
-        cadastroProdutoDTO.setVlUnitario(produto.getVlUnitario());
-        cadastroProdutoDTO.setQuantidade(produto.getQuantidade());
-        cadastroProdutoDTO.setCategoria(produto.getCategoria());
+        dto.setId(produto.getId());
+        dto.setNome(produto.getNome());
+        dto.setVlUnitario(produto.getVlUnitario());
+        dto.setEstoque(produto.getEstoque());
+        dto.setCategoria(produto.getCategoria());
 
-        return cadastroProdutoDTO;
+        return dto;
     }
 
     /**
@@ -106,7 +106,7 @@ public class CadastroProdutoService {
         // Atualiza os dados
         produto.setNome(dto.getNome());
         produto.setVlUnitario(dto.getVlUnitario());
-        produto.setQuantidade(dto.getQuantidade());
+        produto.setEstoque(dto.getEstoque());
         produto.setCategoria(dto.getCategoria());
 
         // Salva as alterações
@@ -123,4 +123,23 @@ public class CadastroProdutoService {
                 .map(this::toDTO)
                 .toList();
     }
+
+    public void atualizarEstoque(
+            List<Long> ids,
+            List<Integer> estoque) {
+
+        for (int i = 0; i < ids.size(); i++) {
+
+            CadastroProdutoEntity produto =
+                    cadastroProdutoRepository.findById(ids.get(i))
+                            .orElseThrow();
+
+            produto.setEstoque(
+                    produto.getEstoque() - estoque.get(i)
+            );
+
+            cadastroProdutoRepository.save(produto);
+        }
+    }
+
 }

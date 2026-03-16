@@ -14,7 +14,7 @@ public class CadastroProdutoDTO {
 
     private BigDecimal vlUnitario;
 
-    private Long quantidade;
+    private Long estoque;
 
     private CategoriaProduto categoria;
 
@@ -51,12 +51,12 @@ public class CadastroProdutoDTO {
         this.vlUnitario = vlUnitario;
     }
 
-    public Long getQuantidade() {
-        return quantidade;
+    public Long getEstoque() {
+        return estoque;
     }
 
-    public void setQuantidade(Long quantidade) {
-        this.quantidade = quantidade;
+    public void setEstoque(Long estoque) {
+        this.estoque = estoque;
     }
 }
 

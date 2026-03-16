@@ -1,0 +1,281 @@
+/* ========================= */
+/* FORMULÁRIO NOVO PEDIDO */
+/* ========================= */
+
+.form-card {
+    width: 100%;
+}
+
+.form-card label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5,150,105,0.2);
+}
+
+.form-card textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ========================= */
+/* BOTÕES */
+/* ========================= */
+
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary {
+    background: #059669;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #047857;
+}
+
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-secondary:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* ========================= */
+/* TABELA PRODUTOS */
+/* ========================= */
+
+.produtos-card{
+    display: none;
+}
+
+.header-produtos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.produtos-card table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+.produtos-card th {
+    background-color: #374151;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.produtos-card td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.total {
+    margin-top: 15px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1f2933;
+}
+
+/* ========================= */
+/* MODAL */
+/* ========================= */
+
+.modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 700px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* HEADER DA MODAL */
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.modal-header h3{
+    margin: 0;
+    font-size: 20px;
+}
+
+/* BOTÃO FECHAR */
+
+.btn-fechar{
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-fechar:hover{
+    color: red;
+}
+
+/* TABELA DA MODAL */
+
+.modal table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modal th{
+    background: #e5e7eb;
+    padding: 10px;
+}
+
+.modal td{
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* BOTÃO ADICIONAR PRODUTO */
+
+.modal button{
+    margin-top: 15px;
+}
+
+#buscarProduto{
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 30px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    outline: none;
+}
+
+#buscarProduto:focus{
+    border-color: #059669;
+    box-shadow: 0 0 5px rgba(5,150,105,0.4);
+}
+
+.add-pedido{
+    background: #059669;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.add-pedido:hover{
+    background: #047857;
+    transform: scale(1.05);
+}
+
+.qtdProduto{
+    width: 60px;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    text-align: center;
+    font-size: 14px;
+}
+/* efeito ao clicar */
+.qtdProduto:focus{
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 4px rgba(5,150,105,0.3);
+}
+
+.qtdProduto::-webkit-inner-spin-button{
+    cursor: pointer;
+}
+/* Checbox estilizado */
+.checkbox-estilizado{
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #059669;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-estilizado:checked{
+    background: #059669;
+}
+
+.checkbox-estilizado:checked::after{
+    content: "✔";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: -2px;
+    left: 3px;
+}
+/* ========================= */
+/* ALERT */
+/* ========================= */
+.mensagem-sucesso{
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    background: #4CAF50;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    z-index: 9999;
+    transition: right 0.5s;
+}

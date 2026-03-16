@@ -32,10 +32,6 @@
             <span class="icon">🛒</span>
             <span class="text">Compras</span>
         </a>
-        <a th:href="@{/pedidos}">
-            <span class="icon">📋</span>
-            <span class="text">Pedidos</span>
-        </a>
         <a th:href="@{/dashboard}">
             <span class="icon">❌</span>
             <span class="text">Sair</span>
@@ -44,6 +40,11 @@
 </aside>
 
 <main class="main">
+    <!-- Mensagem de finalização do pedido-->
+    <div th:if="${param.pedidoSucesso}" class="mensagem-sucesso">
+        ✅ Pedido realizado com sucesso!
+    </div>
+
     <div class="header">
         <h1>Dashboard</h1>
         <p>Bem-vindo ao painel do sistema.</p>
@@ -56,11 +57,11 @@
         </div>
         <div class="card">
             <h3>Pedidos</h3>
-            <p>0 ativos</p>
+            <p th:text="${totalPedidos} + ' ativos'"></p>
         </div>
         <div class="card">
             <h3>Produtos</h3>
-            <p th:text="${totalProdutos} + ' disponíveis'"></p>
+            <p th:text="${totalProdutos} + ' cadastrados'"></p>
         </div>
     </section>
 </main>

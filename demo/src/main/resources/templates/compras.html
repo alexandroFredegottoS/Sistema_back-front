@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Compras</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastroeprodutos.css}">
+    <link rel="stylesheet" th:href="@{/css/compra.css}">
+
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="logo">Sistema</div>
+    <button class="toggle-btn">≡</button>
+
+    <nav class="menu">
+        <a th:href="@{/dashboard}">
+            <span class="icon">🏠</span>
+            <span class="text">Dashboard</span>
+        </a>
+
+        <a th:href="@{/usuarios}">
+            <span class="icon">👤</span>
+            <span class="text">Usuários</span>
+        </a>
+
+        <a th:href="@{/produtos}">
+            <span class="icon">📦</span>
+            <span class="text">Produtos</span>
+        </a>
+
+        <a th:href="@{/cadastroeprodutos}">
+            <span class="icon">➕</span>
+            <span class="text">Cadastro de produtos</span>
+        </a>
+
+        <a th:href="@{/compras}">
+            <span class="icon">🛒</span>
+            <span class="text">Compras</span>
+        </a>
+
+        <a th:href="@{/dashboard}">
+            <span class="icon">❌</span>
+            <span class="text">Sair</span>
+        </a>
+    </nav>
+</aside>
+
+
+<div class="main">
+
+    <form th:action="@{/compras/finalizar}" method="post">
+
+        <h2>📋 Criar Pedido</h2>
+
+        <div>
+
+            <label>Descrição</label>
+            <input type="text" id="descricao" name="descricao"  placeholder="Digite uma descrição para seu pedido..." required>
+
+            <br><br>
+
+            <label>Cliente</label>
+
+            <label for="clienteNome">Cliente</label>
+
+            <input list="listaClientes" id="clienteNome" placeholder="Digite ou selecione um cliente" required>
+
+            <datalist id="listaClientes">
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.nome}"
+                        th:data-id="${usuario.id}">
+                </option>
+            </datalist>
+
+            <input type="hidden" id="clienteId" name="clienteId">
+
+            <br><br>
+
+            <button type="button" onclick="validarPedido()">
+                Continuar Pedido
+            </button>
+
+        </div>
+
+        <br><br>
+
+        <div id="areaProdutos" style="display:none;">
+
+            <h3>Produtos do Pedido</h3>
+
+            <button type="button" onclick="abrirModal()">
+                Adicionar Produto
+            </button>
+
+            <br><br>
+
+            <table>
+
+                <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Subtotal</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+
+                <tbody id="listaProdutos"></tbody>
+
+            </table>
+
+            <br>
+
+            <h3>Total: R$ <span id="totalPedido">0.00</span></h3>
+
+            <br>
+
+            <button type="submit">
+                Finalizar Pedido
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- MODAL PRODUTOS -->
+
+<div id="modalProdutos" class="modal">
+
+    <div class="modal-content">
+        <div class="modal-header">
+
+        <h3>Selecionar Produto</h3>
+        <button class="btn-fechar" onclick="fecharModal()">❌</button>
+    </div>
+            <div class="barra-pesquisa">
+
+                <input type="text" id="buscarProduto" placeholder="Pesquisar produto...">
+
+            </div>
+
+        <br><br>
+
+        <table id="tabelaProdutos">
+
+            <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Selecionar</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="produto : ${produtos}">
+
+                <!-- PRODUTO -->
+                <td th:text="${produto.nome}"></td>
+
+                <!-- PREÇO -->
+                <td>
+                    R$ <span th:text="${produto.vlUnitario}"></span>
+                </td>
+
+                <!-- QUANTIDADE -->
+                <td>
+                    <input type="number"
+                           class="qtdProduto"
+                           value="0"
+                           min="1"
+                           th:max="${produto.estoque}">
+                </td>
+
+                <!-- CHECKBOX -->
+                <td>
+                    <input th:data-id="${produto.id}"
+                           th:data-nome="${produto.nome}"
+                           th:data-preco="${produto.vlUnitario}"
+                           type="checkbox"
+                           class="produtoCheck checkbox-estilizado">
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <button class="add-pedido" type="button" onclick="adicionarProdutosSelecionados()">
+            Adicionar ao Pedido
+        </button>
+    </div>
+</div>
+
+<script>
+    function validarPedido(){
+
+        let descricao = document.getElementById("descricao").value
+        let cliente = document.getElementById("clienteId").value
+
+        if(descricao === "" || cliente === ""){
+
+            alert("Preencha descrição e cliente")
+            return
+
+        }
+        document.getElementById("areaProdutos").style.display="block"
+
+        document.getElementById("descricao").readOnly=true
+
+        abrirModal()
+    }
+
+    function abrirModal(){
+        document.getElementById("modalProdutos").style.display="flex"
+    }
+
+    function fecharModal(){
+        document.getElementById("modalProdutos").style.display="none"
+    }
+
+    function adicionarProdutosSelecionados(){
+
+        let checks = document.querySelectorAll(".produtoCheck")
+
+        checks.forEach((check,index)=>{
+
+            if(check.checked){
+
+                let id = check.getAttribute("data-id")
+                let nome = check.getAttribute("data-nome")
+                let preco = parseFloat(check.getAttribute("data-preco"))
+                let estoque = parseInt(check.getAttribute("data-estoque"))
+
+                let qtd = document.querySelectorAll(".qtdProduto")[index].value
+                let tabela = document.getElementById("listaProdutos")
+                let linha = document.createElement("tr")
+                let subtotal = preco * qtd
+
+                if(qtd > estoque){
+                    alert("Quantidade maior que o estoque disponível!")
+                    return
+                }
+                linha.innerHTML = `
+                    <td>${nome}</td>
+
+                    <td class="preco">${preco}</td>
+
+                    <td>
+                    <input type="number"
+                    value="${qtd}"
+                    min="1"
+                    max="${estoque}"
+                    class="quantidade"
+                    onchange="calcularTotal()">
+                    </td>
+
+                    <td class="subtotal">${subtotal.toFixed(2)}</td>
+
+                    <td>
+                    <button type="button" onclick="removerProduto(this)">
+                    ❌
+                    </button>
+                    </td>
+
+                    <input type="hidden"
+                    name="produtosSelecionados"
+                    value="${id}">
+
+                    <input type="hidden"
+                    name="quantidades"
+                    value="${qtd}">
+                    `
+                tabela.appendChild(linha)
+
+                check.checked = false
+            }
+        })
+        calcularTotal()
+        fecharModal()
+    }
+
+    function calcularTotal(){
+
+        let total = 0
+
+        document.querySelectorAll("#listaProdutos tr").forEach(linha => {
+
+            let preco = parseFloat(linha.querySelector(".preco").innerText)
+
+            let qtd = linha.querySelector(".quantidade").value
+
+            let subtotal = preco * qtd
+
+            linha.querySelector(".subtotal").innerText = subtotal.toFixed(2)
+
+            total += subtotal
+        })
+        document.getElementById("totalPedido").innerText = total.toFixed(2)
+    }
+
+    function removerProduto(botao){
+
+        let linha = botao.closest("tr")
+
+        linha.remove()
+
+        calcularTotal()
+    }
+
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+
+        document.getElementById("clienteNome").addEventListener("input", function() {
+        let input = this.value;
+        let options = document.querySelectorAll("#listaClientes option");
+
+        options.forEach(function(option) {
+        if (option.value === input) {
+        document.getElementById("clienteId").value = option.dataset.id;
+    }
+    });
+    });
+
+    document.getElementById("buscarProduto").addEventListener("keyup", function() {
+
+        let filtro = this.value.toLowerCase();
+        let linhas = document.querySelectorAll("#tabelaProdutos tbody tr");
+
+        linhas.forEach(function(linha){
+
+            let nomeProduto = linha.children[0].textContent.toLowerCase();
+
+            if(nomeProduto.includes(filtro)){
+                linha.style.display = "";
+            }else{
+                linha.style.display = "none";
+            }
+
+        });
+
+    });
+</script>
+</body>
+</html>

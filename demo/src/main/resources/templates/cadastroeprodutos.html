@@ -33,10 +33,6 @@
             <span class="icon">🛒</span>
             <span class="text">Compras</span>
         </a>
-        <a th:href="@{/pedidos}">
-            <span class="icon">📋</span>
-            <span class="text">Pedidos</span>
-        </a>
         <a th:href="@{/dashboard}">
             <span class="icon">❌</span>
             <span class="text">Sair</span>
@@ -58,7 +54,7 @@
                lang="en">
 
         <label>Quantidade:</label>
-        <input type="number" th:field="*{quantidade}">
+        <input type="number" th:field="*{estoque}">
 
         <label>Categoria:</label>
         <select th:field="*{categoria}">
@@ -93,13 +89,13 @@
             <tr>
                 <th>Nome</th>
                 <th>Valor Unitário</th>
-                <th>Quantidade</th>
+                <th>Estoque</th>
                 <th>Categoria</th>
             </tr>
             <tr class="conteudo_form" th:each="produto : ${cadastroeprodutos}">
                 <td th:text="${produto.nome}"></td>
                 <td th:text="${produto.vlUnitario}"></td>
-                <td th:text="${produto.quantidade}"></td>
+                <td th:text="${produto.estoque}"></td>
                 <td th:text="${produto.categoria}"></td>
             </tr>
         </table>

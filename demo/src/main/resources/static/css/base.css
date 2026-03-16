@@ -28,6 +28,15 @@ body {
     width: 70px;
 }
 
+.sucesso{
+    background:#d4edda;
+    color:#155724;
+    padding:12px;
+    border-radius:6px;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
 .logo {
     padding: 20px;
     text-align: center;

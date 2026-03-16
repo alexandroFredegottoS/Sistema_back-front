@@ -20,8 +20,8 @@ public class CadastroProdutoEntity implements Serializable {
     @Column(name = "vlUnitario", precision = 10, scale = 2, nullable = false)
     private BigDecimal vlUnitario;
 
-    @Column(name = "quantidade", nullable = false)
-    private Long quantidade;
+    @Column(name = "estoque", nullable = false)
+    private Long estoque;
 
     @Enumerated(EnumType.STRING)
     private CategoriaProduto categoria;
@@ -57,11 +57,11 @@ public class CadastroProdutoEntity implements Serializable {
         this.vlUnitario = vlUnitario;
     }
 
-    public Long getQuantidade() {
-        return quantidade;
+    public Long getEstoque() {
+        return estoque;
     }
 
-    public void setQuantidade(Long quantidade) {
-        this.quantidade = quantidade;
+    public void setEstoque(Long estoque) {
+        this.estoque = estoque;
     }
 }

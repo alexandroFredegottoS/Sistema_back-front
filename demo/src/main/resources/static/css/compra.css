@@ -41,6 +41,25 @@
 /* ========================= */
 /* BOTÕES */
 /* ========================= */
+.header-produtos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-add-produto{
+    background: #059669;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-add-produto:hover{
+    background: #047857;
+}
 
 .button-group {
     margin-top: 20px;
@@ -81,6 +100,27 @@
 /* ========================= */
 /* TABELA PRODUTOS */
 /* ========================= */
+
+/* Centralizar tabela do pedido */
+
+#listaProdutos td,
+#listaProdutos th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Centralizar também inputs */
+#listaProdutos input{
+    text-align: center;
+}
+
+#listaProdutos .quantidade{
+    width: 70px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
 
 .produtos-card{
     display: none;
@@ -271,11 +311,44 @@
 .mensagem-sucesso{
     position: fixed;
     top: 20px;
-    right: -300px;
-    background: #4CAF50;
+    right: -350px;
+    background: linear-gradient(135deg, #059669, #10b981);
     color: white;
-    padding: 12px 18px;
-    border-radius: 6px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     z-index: 9999;
-    transition: right 0.5s;
+    transition: all 0.5s ease;
+    width: 280px;
+    font-family: Arial, sans-serif;
+}
+
+/* Quando aparece */
+.mensagem-sucesso.show{
+    right: 20px;
+}
+
+/* Texto */
+.mensagem-sucesso p{
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Botão PDF */
+.mensagem-sucesso button{
+    margin-top: 10px;
+    width: 100%;
+    background: white;
+    color: #059669;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.mensagem-sucesso button:hover{
+    background: #ecfdf5;
 }

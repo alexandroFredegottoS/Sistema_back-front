@@ -20,6 +20,17 @@ public class Pedido {
     @JoinColumn(name = "cliente_id", nullable = false)
     private UsuarioEntity cliente;
 
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<Item_Pedido> itens;
+
+    public List<Item_Pedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item_Pedido> itens) {
+        this.itens = itens;
+    }
+
     public Long getId() {
         return id;
     }

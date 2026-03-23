@@ -1,7 +1,6 @@
 package br.com.pedido.demo.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -15,26 +14,27 @@ public class Item_Pedido {
     @Column(name = "quantidade", nullable = false)
     private Long quantidade;
 
-    @Column(name = "vl_Unitario", precision = 10, scale = 2, nullable = false)
-    private BigDecimal vl_Unitario;
-
-    @Column(name = "vl_Total", precision = 10, scale = 2, nullable = false)
-    private BigDecimal vl_total;
+    @Column(name = "vl_unitario", precision = 10, scale = 2, nullable = false)
+    private BigDecimal vlUnitario;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", nullable = false)
     private CadastroProdutoEntity produto;
+
+    // NÃO salva no banco (melhor prática)
+    @Transient
+    public BigDecimal getVlTotal() {
+        return vlUnitario.multiply(BigDecimal.valueOf(quantidade));
+    }
+
+    // GETTERS E SETTERS
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getQuantidade() {
@@ -45,20 +45,12 @@ public class Item_Pedido {
         this.quantidade = quantidade;
     }
 
-    public BigDecimal getVl_Unitario() {
-        return vl_Unitario;
+    public BigDecimal getVlUnitario() {
+        return vlUnitario;
     }
 
-    public void setVl_Unitario(BigDecimal vl_Unitario) {
-        this.vl_Unitario = vl_Unitario;
-    }
-
-    public BigDecimal getVl_total() {
-        return vl_total;
-    }
-
-    public void setVl_total(BigDecimal vl_total) {
-        this.vl_total = vl_total;
+    public void setVlUnitario(BigDecimal vlUnitario) {
+        this.vlUnitario = vlUnitario;
     }
 
     public Pedido getPedido() {

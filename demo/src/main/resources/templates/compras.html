@@ -52,6 +52,17 @@
 
 <div class="main">
 
+    <div th:if="${pedidoSucesso}" class="mensagem-sucesso">
+
+        <p>✅ Pedido realizado com sucesso!</p>
+
+        <a th:if="${pedidoId != null}"
+           th:href="@{/compras/pedido/{id}/pdf(id=${pedidoId})}">
+            <button type="button">📄 Gerar PDF</button>
+        </a>
+
+    </div>
+
     <form th:action="@{/compras/finalizar}" method="post">
 
         <h2>📋 Criar Pedido</h2>
@@ -90,11 +101,13 @@
 
         <div id="areaProdutos" style="display:none;">
 
-            <h3>Produtos do Pedido</h3>
+            <div class="header-produtos">
+                <h3>Produtos do Pedido</h3>
 
-            <button type="button" onclick="abrirModal()">
-                Adicionar Produto
-            </button>
+                <button type="button" onclick="abrirModal()" class="btn-add-produto">
+                    Adicionar Produto
+                </button>
+            </div>
 
             <br><br>
 
@@ -351,6 +364,22 @@
         });
 
     });
+
+    window.addEventListener("load", function(){
+
+    let msg = document.querySelector(".mensagem-sucesso");
+
+    if(msg){
+        setTimeout(() => {
+            msg.classList.add("show");
+        }, 100);
+
+        setTimeout(() => {
+            msg.classList.remove("show");
+        }, 8000);
+    }
+
+});
 </script>
 </body>
 </html>
